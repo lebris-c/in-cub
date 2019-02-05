@@ -1,3 +1,62 @@
-<p>
-  consultant-component works!
-</p>
+<div
+  class="container"
+  fxLayout="row"
+  fxLayout.xs="column"
+  fxLayoutWrap
+  fxLayoutGap="0.5%"
+  fxLayoutAlign="center"
+>
+  <div fxFlex="80%">
+    <div style="display: flex;flex-direction: row;justify-content: space-between">
+      <h2
+        style="color: #111; font-family: 'Helvetica Neue', sans-serif; font-weight: bold; letter-spacing: -1px; line-height: 1;"
+      >
+        Liste des consultants
+      </h2>
+      <button
+        mat-raised-button
+        color="primary"
+        style="height : 40px;margin-top: auto;margin-bottom: auto"
+        routerLink="/consultant"
+        routerLinkActive="active"
+      >
+        Nouveau
+      </button>
+    </div>
+    <mat-divider></mat-divider>
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8"
+      style="margin-top : 60px; width : 100%;"
+    >
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Nom</th>
+        <td mat-cell *matCellDef="let consultant">{{ consultant.name }}</td>
+      </ng-container>
+      <ng-container matColumnDef="surname">
+        <th mat-header-cell *matHeaderCellDef>Prenom</th>
+        <td mat-cell *matCellDef="let consultant">{{ consultant.surname }}</td>
+      </ng-container>
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <td mat-cell *matCellDef="let consultant">{{ consultant.description }}</td>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let consultant">
+          <button
+            mat-icon-button
+            color="primary"
+            routerLink="/consultant/{{ consultant.id }}"
+            routerLinkActive="active"
+          >
+            <mat-icon aria-label="Edit">create</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>

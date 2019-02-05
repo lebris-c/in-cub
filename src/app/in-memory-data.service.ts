@@ -1,20 +1,16 @@
-import { Injectable } from '@angular/core';
-import Startup from "./startup-component/startup"
-import Consultant from "./consultant-component/consultant"
+import { Injectable } from "@angular/core";
+import Startup from "./startup-component/startup";
+import Consultant from "./consultant-component/consultant";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class InMemoryDataService implements InMemoryDataService {
   createDb() {
-    let consultant1 = new Consultant(1,"Le Bris","Corentin","Bg du 29")
-    let consultant2 = new Consultant(1,"Bouchard","Alexandre","Coran Corah Toran")
-    let consultant3 = new Consultant(1,"Bernard","Clément","So Gay")
-    const consultants = [
-      consultant1,
-      consultant2,
-      consultant3
-    ]
+    let consultant1 = new Consultant(1, "Le Bris", "Corentin", "Bg du 29");
+    let consultant2 = new Consultant(2, "Bouchard", "Alexandre", "Coran Corah Toran");
+    let consultant3 = new Consultant(3, "Bernard", "Clément", "So Gay");
+    const consultants = [consultant1, consultant2, consultant3];
 
     const startups = [
       new Startup(
@@ -24,8 +20,7 @@ export class InMemoryDataService implements InMemoryDataService {
         "Vincent L.",
         1,
         "Spécialiste du Business Development, nous accompagnons nos clients (de la Start-Up à l'ETI) avec un ensemble de métiers opérationnels pour soutenir et développer le Chiffre d'Affaires.",
-        "21 Avenue des Tulipes"
-        ,
+        "21 Avenue des Tulipes",
         consultant1
       ),
       new Startup(
@@ -69,10 +64,10 @@ export class InMemoryDataService implements InMemoryDataService {
         consultant2
       )
     ];
-    return { consultants,startups };
+    return { consultants, startups };
   }
   genId(startups: Startup[]): number {
     return startups.length > 0 ? Math.max(...startups.map(startup => startup.id)) + 1 : 11;
   }
-  constructor() { }
+  constructor() {}
 }
