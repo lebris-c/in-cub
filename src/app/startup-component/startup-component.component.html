@@ -1,0 +1,9 @@
+<table mat-table [dataSource]="myDataArray">
+  <ng-container matColumnDef="startupName">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td *ngFor="let startup of Startups | async" mat-cell > {{ startup.name }} </td>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</table>
+
