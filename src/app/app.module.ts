@@ -10,10 +10,11 @@ import { Page404Component } from './page404/page404.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { TopMenuComponent } from './top-menu/top-menu.component';
 import { MatMenuModule} from '@angular/material/menu';
-import { MatButtonModule, MatTableModule } from '@angular/material';
+import { MatButtonModule, MatTableModule, MatCardModule } from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule} from "angular-in-memory-web-api"
 import { InMemoryDataService } from './in-memory-data.service';
+import { ConsultantFormComponent } from './consultant-form/consultant-form.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { InMemoryDataService } from './in-memory-data.service';
     ConsultantComponentComponent,
     HomeComponent,
     Page404Component,
-    TopMenuComponent
+    TopMenuComponent,
+    ConsultantFormComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +34,7 @@ import { InMemoryDataService } from './in-memory-data.service';
     MatButtonModule,
     MatTableModule,
     HttpClientModule,
+    MatCardModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
   ],
   providers: [],  

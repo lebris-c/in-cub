@@ -20,7 +20,7 @@ export class StartupService {
   }
 
   add(s) {
-    this.startup  = new Startup(Math.random()*1000, s.name, s.activity, s.nbCofounder, s.description, s.adress,s.consultant)
+    this.startup  = new Startup(Math.random()*1000, s.name, s.activity, s.official, s.nbCofounder, s.description, s.adress,s.consultant)
     this.http.post<Startup[]>(`/api/startups`, this.startup)
   }
 
