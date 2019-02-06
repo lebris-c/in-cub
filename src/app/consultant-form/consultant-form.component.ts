@@ -12,7 +12,7 @@ import { NotifierService } from "angular-notifier";
   styleUrls: ["./consultant-form.component.css"]
 })
 export class ConsultantFormComponent implements OnInit {
-  idCtrl: FormControl;
+  idConsultantCtrl: FormControl;
   nameCtrl: FormControl;
   surnameCtrl: FormControl;
   descriptionCtrl: FormControl;
@@ -33,12 +33,12 @@ export class ConsultantFormComponent implements OnInit {
     this.route = route;
     this.router = router;
     this.consultantService = consultantService;
-    this.idCtrl = fb.control("");
+    this.idConsultantCtrl = fb.control("");
     this.nameCtrl = fb.control("", [Validators.required]);
     this.surnameCtrl = fb.control("", [Validators.required]);
     this.descriptionCtrl = fb.control("", [Validators.required]);
     this.consultantForm = fb.group({
-      id: this.idCtrl,
+      idConsultant: this.idConsultantCtrl,
       name: this.nameCtrl,
       surname: this.surnameCtrl,
       description: this.descriptionCtrl
@@ -48,7 +48,7 @@ export class ConsultantFormComponent implements OnInit {
     if (id !== 0) {
       this.consultantService.getConsultant(id).subscribe(res => {
         this.consultant = res;
-        this.idCtrl.setValue(res.id);
+        this.idConsultantCtrl.setValue(res.idConsultant);
         this.nameCtrl.setValue(res.name);
         this.surnameCtrl.setValue(res.surname);
         this.descriptionCtrl.setValue(res.description);
@@ -61,7 +61,7 @@ export class ConsultantFormComponent implements OnInit {
   add() {
     if (this.consultant != null) {
       let consultant = new Consultant(
-        this.consultantForm.value.id,
+        this.consultantForm.value.idConsultant,
         this.consultantForm.value.name,
         this.consultantForm.value.surname,
         this.consultantForm.value.description
@@ -77,7 +77,7 @@ export class ConsultantFormComponent implements OnInit {
       );
     } else {
       let data = this.consultantForm.value;
-      delete data["id"];
+      delete data["idConsultant"];
       this.consultantService.add(data).subscribe(
         data => {
           this.notifier.notify("success", "Ajouter avec succès");

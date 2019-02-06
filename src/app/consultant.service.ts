@@ -12,28 +12,29 @@ export class ConsultantService {
   consultants: Consultant[];
   myObservable: Observable<Consultant[]>;
   consultant: Consultant;
+  url: string;
   constructor(http: HttpClient) {
+    this.url = "http://localhost:3000/consultant";
     this.http = http;
   }
 
   getConsultants() {
-    return this.http.get<Consultant[]>(`api/consultants`);
+    return this.http.get<Consultant[]>(this.url);
   }
 
   getConsultant(id): Observable<Consultant> {
-    return this.http.get<Consultant>(`api/consultants/` + id);
+    return this.http.get<Consultant>(this.url + "/" + id);
   }
 
   add(data) {
     const cudOptions = { headers: new HttpHeaders({ "Content-Type": "application/json" }) };
-    return this.http.post(`api/consultants`, data, cudOptions);
-  }
-
-  delete(s) {
-    this.http.delete(s);
+    return this.http.post(this.url, data, cudOptions);
   }
   edit(consultant: Consultant) {
     const cudOptions = { headers: new HttpHeaders({ "Content-Type": "application/json" }) };
-    return this.http.put<Consultant>(`api/consultants`, consultant, cudOptions);
+    return this.http.put<Consultant>(this.url, consultant, cudOptions);
+  }
+  delete(s) {
+    this.http.delete(s);
   }
 }
