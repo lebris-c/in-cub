@@ -30,7 +30,7 @@ export class InMemoryDataService implements InMemoryDataService {
         "Lionel M.",
         3,
         "AriadNEXT édite depuis 2010, les solutions d’identification numérique automatisées les plus avancées. Nous offrons aux entreprises et gouvernements, la possibilité de nouer instantanément des relations de confiance avec leurs consommateurs et leurs citoyens en ligne.",
-        "21 Avenue des Jonquilles",
+        '',
         consultant2
       ),
       new Startup(
