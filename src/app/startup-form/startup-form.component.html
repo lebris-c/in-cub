@@ -1,67 +1,79 @@
 <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="center">
-    <div fxFlex="80%">
-      <h2
-        style="color: #111; font-family: 'Helvetica Neue', sans-serif; font-weight: bold; letter-spacing: -1px; line-height: 1;"
-      >
-        Ajouter une start-up
-      </h2>
-      <mat-divider></mat-divider>
-      <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="center">
-        <div fxFlex="60%">
-          <form (ngSubmit)="add()" [formGroup]="startupForm">
-            <div style="display: flex;flex-direction: column">
-              <input type="hidden" formControlName="id" />
-              <mat-form-field>
-                <input matInput placeholder="Nom" formControlName="name" />
-                <mat-error *ngIf="nameCtrl.errors?.maxlength">
-                   Le nom doit contenir moins de 20 caractères.
-                </mat-error>
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput placeholder="Secteur d'activité" formControlName="activity" />
-                <mat-error *ngIf="activityCtrl.errors?.maxlength">
-                    Le secteur d'activité doit contenir moins de 10 caractères.
-                 </mat-error>
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput placeholder="Représentant légal" formControlName="official" />
-                <mat-error *ngIf="officialCtrl.errors?.maxlength">
-                  Le représentant légal doit contenir moins de 15 caractères.
-                </mat-error>
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput type="number" placeholder="Nombre de co-fondateurs" formControlName="nbCofounder" />
-              </mat-form-field>
-              <mat-form-field>
-                <textarea matInput placeholder="Description" formControlName="description"></textarea>
-                <mat-error *ngIf="descriptionCtrl.errors?.maxlength">
-                  La description doit contenir moins de 250 caractères.
-                </mat-error>
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput placeholder="Adresse" formControlName="address" />
-                <mat-error *ngIf="addressCtrl.errors?.maxlength">
-                  L'adresse doit contenir moins de 25 caractères.
-                </mat-error>
-              </mat-form-field>
-              <mat-form-field>
-                <mat-select [(ngModel)]="Consultant" [ngModelOptions]="{standalone: true}" placeholder="Consultant">
-                  <mat-option *ngFor="let consultant of consultants | async" [value]="consultant">
-                    {{consultant.surname | uppercase}} {{ consultant.name}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-              <button
-                type="submit"
-                [disabled]="startupForm.invalid"
-                mat-raised-button
-                color="primary"
+  <div fxFlex="80%">
+    <h2
+      style="color: #111; font-family: 'Helvetica Neue', sans-serif; font-weight: bold; letter-spacing: -1px; line-height: 1;"
+    >
+      Ajouter une start-up
+    </h2>
+    <mat-divider></mat-divider>
+    <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="center">
+      <div fxFlex="60%">
+        <form (ngSubmit)="add()" [formGroup]="startupForm">
+          <div style="display: flex;flex-direction: column">
+            <input type="hidden" formControlName="id" />
+            <mat-form-field>
+              <input matInput placeholder="Nom" formControlName="name" />
+              <mat-error *ngIf="nameCtrl.errors?.maxlength">
+                Le nom doit contenir moins de 20 caractères.
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Secteur d'activité" formControlName="activity" />
+              <mat-error *ngIf="activityCtrl.errors?.maxlength">
+                Le secteur d'activité doit contenir moins de 10 caractères.
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Représentant légal" formControlName="official" />
+              <mat-error *ngIf="officialCtrl.errors?.maxlength">
+                Le représentant légal doit contenir moins de 15 caractères.
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input
+                matInput
+                type="number"
+                placeholder="Nombre de co-fondateurs"
+                formControlName="nbCofounder"
+              />
+            </mat-form-field>
+            <mat-form-field>
+              <textarea matInput placeholder="Description" formControlName="description"></textarea>
+              <mat-error *ngIf="descriptionCtrl.errors?.maxlength">
+                La description doit contenir moins de 250 caractères.
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Adresse" formControlName="address" />
+              <mat-error *ngIf="addressCtrl.errors?.maxlength">
+                L'adresse doit contenir moins de 25 caractères.
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-select
+                [(ngModel)]="selectedConsultant"
+                placeholder="Consultant"
+                formControlName="consultantId"
               >
-                Ajouter
-              </button>
-            </div>
-          </form>
-        </div>
+                <mat-option
+                  *ngFor="let consultant of (consultants | async)"
+                  [value]="consultant.idConsultant"
+                >
+                  {{ consultant.surname | uppercase }} {{ consultant.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <button
+              type="submit"
+              [disabled]="startupForm.invalid"
+              mat-raised-button
+              color="primary"
+            >
+              Ajouter
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
+</div>

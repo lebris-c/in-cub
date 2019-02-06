@@ -22,31 +22,20 @@ export class StartupService {
   }
 
   getStartup(id) {
-    return this.http.get<Startup>(`/api/startups/` + id);
+    return this.http.get<Startup>(this.url + "/" + id);
   }
 
-  add(s) {
+  add(data) {
     const cudOptions = { headers: new HttpHeaders({ "Content-Type": "application/json" }) };
-    return this.http.post(`api/startups`, s, cudOptions);
-  }
-
-  get(s) {
-    return this.startups[s];
+    return this.http.post<Startup>(this.url, data, cudOptions);
   }
 
   delete(id) {
-    this.http.delete<Startup>(`api/startups/` + id);
+    console.log(id);
+    return this.http.delete(this.url + "/" + id);
   }
-
   edit(startup: Startup) {
     const cudOptions = { headers: new HttpHeaders({ "Content-Type": "application/json" }) };
-    return this.http
-      .put<Startup>(`api/startups`, startup, cudOptions)
-      .pipe(
-        catchError(err => {
-          console.error(err);
-          return null;
-        })
-      )
+    return this.http.put<Startup>(this.url, startup, cudOptions);
   }
 }

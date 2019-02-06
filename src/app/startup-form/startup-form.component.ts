@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { StartupService } from '../startup.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import Startup from '../startup-component/startup';
-import { ConsultantService } from '../consultant.service';
-import { Observable } from 'rxjs';
-import Consultant from '../consultant-component/consultant';
-import { validateBasis } from '@angular/flex-layout';
-import { NotifierService } from 'angular-notifier';
-import { partition } from 'rxjs/operators';
+import { Component, OnInit } from "@angular/core";
+import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { StartupService } from "../startup.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import Startup from "../startup-component/startup";
+import { ConsultantService } from "../consultant.service";
+import { Observable } from "rxjs";
+import Consultant from "../consultant-component/consultant";
+import { validateBasis } from "@angular/flex-layout";
+import { NotifierService } from "angular-notifier";
+import { partition, find, map } from "rxjs/operators";
 
 @Component({
-  selector: 'app-startup-form',
-  templateUrl: './startup-form.component.html',
-  styleUrls: ['./startup-form.component.css']
+  selector: "app-startup-form",
+  templateUrl: "./startup-form.component.html",
+  styleUrls: ["./startup-form.component.css"]
 })
 export class StartupFormComponent implements OnInit {
   idCtrl: FormControl;
@@ -23,47 +23,39 @@ export class StartupFormComponent implements OnInit {
   nbCofounderCtrl: FormControl;
   descriptionCtrl: FormControl;
   addressCtrl: FormControl;
-  consultantCtrl: FormControl;
+  consultantIdCtrl: FormControl;
   startupForm: FormGroup;
   startupService: StartupService;
   route: ActivatedRoute;
   startup: Startup;
-  consultants: Observable<Consultant[]>
+  consultants: Observable<Consultant[]>;
   notifier: NotifierService;
   router: Router;
-  data: Consultant
-  // Liste des consultants 
+  data: Consultant;
+  selectedConsultant: number;
+  // Liste des consultants
   consultantService: ConsultantService;
-  constructor(fb: FormBuilder, startupService: StartupService, route: ActivatedRoute,
-     consultantService: ConsultantService, notifierService: NotifierService, router: Router) { 
+  constructor(
+    fb: FormBuilder,
+    startupService: StartupService,
+    route: ActivatedRoute,
+    consultantService: ConsultantService,
+    notifierService: NotifierService,
+    router: Router
+  ) {
     this.notifier = notifierService;
     this.router = router;
     this.consultantService = consultantService;
     this.route = route;
     this.startupService = startupService;
     this.idCtrl = fb.control("");
-    this.nameCtrl = fb.control("", [
-      Validators.required,
-      Validators.maxLength(20)
-    ]);
-    this.activityCtrl = fb.control("", [
-      Validators.required,
-      Validators.maxLength(10)
-    ]);
-    this.officialCtrl = fb.control("", [
-      Validators.required,
-      Validators.maxLength(15)
-    ]);
-    this.nbCofounderCtrl = fb.control("",[
-      Validators.required
-    ]);
-    this.descriptionCtrl = fb.control("", [
-      Validators.maxLength(250)
-    ]);
-    this.addressCtrl = fb.control("", [
-      Validators.maxLength(25)
-    ]);
-    this.consultantCtrl = fb.control("")
+    this.nameCtrl = fb.control("", [Validators.required, Validators.maxLength(20)]);
+    this.activityCtrl = fb.control("", [Validators.required, Validators.maxLength(10)]);
+    this.officialCtrl = fb.control("", [Validators.required, Validators.maxLength(15)]);
+    this.nbCofounderCtrl = fb.control("", [Validators.required]);
+    this.descriptionCtrl = fb.control("", [Validators.maxLength(250)]);
+    this.addressCtrl = fb.control("", [Validators.maxLength(25)]);
+    this.consultantIdCtrl = fb.control("");
     this.startupForm = fb.group({
       id: this.idCtrl,
       name: this.nameCtrl,
@@ -72,35 +64,30 @@ export class StartupFormComponent implements OnInit {
       nbCofounder: this.nbCofounderCtrl,
       description: this.descriptionCtrl,
       address: this.addressCtrl,
-      consultant: this.consultantCtrl
+      consultantId: this.consultantIdCtrl
     });
 
-    const id =+ this.route.snapshot.paramMap.get("id");
+    const id = +this.route.snapshot.paramMap.get("id");
     if (id !== 0) {
       this.startupService.getStartup(id).subscribe(res => {
         this.startup = res;
-        this.idCtrl.setValue(res.id);
+        this.idCtrl.setValue(res.idStartup);
         this.nameCtrl.setValue(res.name);
         this.activityCtrl.setValue(res.activity);
         this.officialCtrl.setValue(res.official);
         this.nbCofounderCtrl.setValue(res.nbCofounder);
         this.descriptionCtrl.setValue(res.description);
         this.addressCtrl.setValue(res.address);
-        this.consultantCtrl.setValue(res.consultant);
+        this.selectedConsultant = res.consultantId;
       });
     }
   }
   ngOnInit() {
-    this.consultants = this.consultantService.getConsultants()
+    this.consultants = this.consultantService.getConsultants();
   }
 
   add() {
     if (this.startup != null) {
-      
-     /* let c = this.consultantService.getConsultant(this.startupForm.value.consultant).subscribe(res => {
-        this.data = res
-      })*/
-      console.log(this.data)
       let startup = new Startup(
         this.startupForm.value.id,
         this.startupForm.value.name,
@@ -109,9 +96,8 @@ export class StartupFormComponent implements OnInit {
         this.startupForm.value.nbCofounder,
         this.startupForm.value.description,
         this.startupForm.value.address,
-        this.startupForm.value.consultant
+        this.startupForm.value.consultantId
       );
-      
       this.startupService.edit(startup).subscribe(
         data => {
           this.notifier.notify("success", "Modifier avec succès");
@@ -133,7 +119,6 @@ export class StartupFormComponent implements OnInit {
           this.notifier.notify("error", "Erreur lors de l'ajout");
         }
       );
-      console.log(this.startupForm.value.consultant)
     }
   }
 }

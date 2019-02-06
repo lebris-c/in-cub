@@ -19,7 +19,8 @@ import {
   MatOptionModule,
   MatFormFieldModule,
   MatDividerModule,
-  MatSelectModule
+  MatSelectModule,
+  MatTooltipModule
 } from "@angular/material";
 import { HttpClientModule } from "@angular/common/http";
 import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
@@ -63,7 +64,8 @@ import { NotifierModule } from "angular-notifier";
     MatInputModule,
     MatIconModule,
     NotifierModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTooltipModule
     // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
   ],
   providers: [AddressPipe],
