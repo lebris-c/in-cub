@@ -24,8 +24,8 @@ export class StartupService {
   }
 
   add(s) {
-    this.startup  = new Startup(Math.random()*1000, s.name, s.activity, s.official, s.nbCofounder, s.description, s.address,s.consultant)
-    this.http.post<Startup[]>(`/api/startups`, this.startup).subscribe(res => console.log("test"));
+    const cudOptions = { headers: new HttpHeaders({ "Content-Type": "application/json" }) };
+    return this.http.post(`api/startups`, s, cudOptions);
   }
 
   get(s) {
@@ -48,6 +48,5 @@ export class StartupService {
           return null;
         })
       )
-      .subscribe(res => console.log("test"));
   }
 }

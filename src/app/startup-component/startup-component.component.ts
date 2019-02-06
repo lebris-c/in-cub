@@ -33,7 +33,7 @@ export class StartupComponentComponent implements OnInit {
   }
 
   delete(id){
-    this.startupService.delete(id);
+    this.startupService.delete(id)
   }
 }
 

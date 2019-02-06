@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { StartupService } from '../startup.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Startup from '../startup-component/startup';
 import { ConsultantService } from '../consultant.service';
 import { Observable } from 'rxjs';
 import Consultant from '../consultant-component/consultant';
 import { validateBasis } from '@angular/flex-layout';
+import { NotifierService } from 'angular-notifier';
+import { partition } from 'rxjs/operators';
 
 @Component({
   selector: 'app-startup-form',
@@ -27,9 +29,15 @@ export class StartupFormComponent implements OnInit {
   route: ActivatedRoute;
   startup: Startup;
   consultants: Observable<Consultant[]>
+  notifier: NotifierService;
+  router: Router;
+  data: Consultant
   // Liste des consultants 
   consultantService: ConsultantService;
-  constructor(fb: FormBuilder, startupService: StartupService, route: ActivatedRoute, consultantService: ConsultantService) { 
+  constructor(fb: FormBuilder, startupService: StartupService, route: ActivatedRoute,
+     consultantService: ConsultantService, notifierService: NotifierService, router: Router) { 
+    this.notifier = notifierService;
+    this.router = router;
     this.consultantService = consultantService;
     this.route = route;
     this.startupService = startupService;
@@ -88,6 +96,11 @@ export class StartupFormComponent implements OnInit {
 
   add() {
     if (this.startup != null) {
+      
+     /* let c = this.consultantService.getConsultant(this.startupForm.value.consultant).subscribe(res => {
+        this.data = res
+      })*/
+      console.log(this.data)
       let startup = new Startup(
         this.startupForm.value.id,
         this.startupForm.value.name,
@@ -98,11 +111,29 @@ export class StartupFormComponent implements OnInit {
         this.startupForm.value.address,
         this.startupForm.value.consultant
       );
-      this.startupService.edit(startup);
+      
+      this.startupService.edit(startup).subscribe(
+        data => {
+          this.notifier.notify("success", "Modifier avec succès");
+          this.router.navigate(["/startups"]);
+        },
+        error => {
+          this.notifier.notify("error", "Erreur lors de la modification");
+        }
+      );
     } else {
       let data = this.startupForm.value;
       delete data["id"];
-      this.startupService.add(data)
+      this.startupService.add(data).subscribe(
+        data => {
+          this.notifier.notify("success", "Ajouter avec succès");
+          this.router.navigate(["/startups"]);
+        },
+        error => {
+          this.notifier.notify("error", "Erreur lors de l'ajout");
+        }
+      );
+      console.log(this.startupForm.value.consultant)
     }
   }
 }

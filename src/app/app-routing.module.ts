@@ -14,8 +14,7 @@ const routes: Routes = [
   { path: 'startups', component: StartupComponentComponent },
   { path: 'startup', component: StartupFormComponent },
   { path: 'startup/:id', component: StartupFormComponent },
-  { path: 'page404', component: Page404Component }
- 
+  { path: 'page404', component: Page404Component },
   { path: "consultant/:id", component: ConsultantFormComponent },
   { path: "consultant", component: ConsultantFormComponent },
 ];

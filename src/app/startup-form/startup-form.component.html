@@ -13,19 +13,19 @@
               <input type="hidden" formControlName="id" />
               <mat-form-field>
                 <input matInput placeholder="Nom" formControlName="name" />
-                <mat-error *ngIf="nameCtrl.errors.maxlength">
+                <mat-error *ngIf="nameCtrl.errors?.maxlength">
                    Le nom doit contenir moins de 20 caractères.
                 </mat-error>
               </mat-form-field>
               <mat-form-field>
                 <input matInput placeholder="Secteur d'activité" formControlName="activity" />
-                <mat-error *ngIf="nameCtrl.errors.maxlength">
+                <mat-error *ngIf="activityCtrl.errors?.maxlength">
                     Le secteur d'activité doit contenir moins de 10 caractères.
                  </mat-error>
               </mat-form-field>
               <mat-form-field>
                 <input matInput placeholder="Représentant légal" formControlName="official" />
-                <mat-error *ngIf="nameCtrl.errors.maxlength">
+                <mat-error *ngIf="officialCtrl.errors?.maxlength">
                   Le représentant légal doit contenir moins de 15 caractères.
                 </mat-error>
               </mat-form-field>
@@ -34,18 +34,18 @@
               </mat-form-field>
               <mat-form-field>
                 <textarea matInput placeholder="Description" formControlName="description"></textarea>
-                <mat-error *ngIf="nameCtrl.errors.maxlength">
+                <mat-error *ngIf="descriptionCtrl.errors?.maxlength">
                   La description doit contenir moins de 250 caractères.
                 </mat-error>
               </mat-form-field>
               <mat-form-field>
                 <input matInput placeholder="Adresse" formControlName="address" />
-                <mat-error *ngIf="nameCtrl.errors.maxlength">
+                <mat-error *ngIf="addressCtrl.errors?.maxlength">
                   L'adresse doit contenir moins de 25 caractères.
                 </mat-error>
               </mat-form-field>
               <mat-form-field>
-                <mat-select placeholder="Consultant">
+                <mat-select [(ngModel)]="Consultant" [ngModelOptions]="{standalone: true}" placeholder="Consultant">
                   <mat-option *ngFor="let consultant of consultants | async" [value]="consultant">
                     {{consultant.surname | uppercase}} {{ consultant.name}}
                   </mat-option>
