@@ -26,19 +26,7 @@ export class ConsultantService {
 
   add(data) {
     const cudOptions = { headers: new HttpHeaders({ "Content-Type": "application/json" }) };
-    return this.http
-      .post(`api/consultants`, data, cudOptions)
-      .pipe(
-        catchError(err => {
-          console.error(err);
-          return null;
-        })
-      )
-      .subscribe({
-        next(position) {
-          return "Ok";
-        }
-      });
+    return this.http.post(`api/consultants`, data, cudOptions);
   }
 
   delete(s) {
@@ -46,16 +34,6 @@ export class ConsultantService {
   }
   edit(consultant: Consultant) {
     const cudOptions = { headers: new HttpHeaders({ "Content-Type": "application/json" }) };
-    return this.http
-      .put<Consultant>(`api/consultants`, consultant, cudOptions)
-      .pipe(
-        catchError(err => {
-          console.error(err);
-          return null;
-        })
-      )
-      .subscribe({
-        next(position) {}
-      });
+    return this.http.put<Consultant>(`api/consultants`, consultant, cudOptions);
   }
 }

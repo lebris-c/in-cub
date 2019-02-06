@@ -30,6 +30,7 @@ import { StartupFormComponent } from './startup-form/startup-form.component';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CofounderPipe } from './cofounder.pipe';
+import { NotifierModule } from "angular-notifier";
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { CofounderPipe } from './cofounder.pipe';
     FlexLayoutModule,
     MatInputModule,
     MatIconModule,
+    NotifierModule,
     MatSelectModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
   ],

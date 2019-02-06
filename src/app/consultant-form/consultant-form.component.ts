@@ -1,8 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ConsultantService } from "../consultant.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import Consultant from "../consultant-component/consultant";
+import { catchError } from "rxjs/operators";
+import { NotifierService } from "angular-notifier";
 
 @Component({
   selector: "app-consultant-form",
@@ -18,9 +20,18 @@ export class ConsultantFormComponent implements OnInit {
   consultantService: ConsultantService;
   route: ActivatedRoute;
   consultant: Consultant;
-  constructor(fb: FormBuilder, consultantService: ConsultantService, route: ActivatedRoute) {
+  router: Router;
+  notifier: NotifierService;
+  constructor(
+    fb: FormBuilder,
+    consultantService: ConsultantService,
+    route: ActivatedRoute,
+    router: Router,
+    notifierService: NotifierService
+  ) {
+    this.notifier = notifierService;
     this.route = route;
-
+    this.router = router;
     this.consultantService = consultantService;
     this.idCtrl = fb.control("");
     this.nameCtrl = fb.control("", [Validators.required]);
@@ -55,11 +66,27 @@ export class ConsultantFormComponent implements OnInit {
         this.consultantForm.value.surname,
         this.consultantForm.value.description
       );
-      this.consultantService.edit(consultant);
+      this.consultantService.edit(consultant).subscribe(
+        data => {
+          this.notifier.notify("success", "Modifier avec succès");
+          this.router.navigate(["/consultants"]);
+        },
+        error => {
+          this.notifier.notify("error", "Erreur lors de la modification");
+        }
+      );
     } else {
       let data = this.consultantForm.value;
       delete data["id"];
-      this.consultantService.add(data);
+      this.consultantService.add(data).subscribe(
+        data => {
+          this.notifier.notify("success", "Ajouter avec succès");
+          this.router.navigate(["/consultants"]);
+        },
+        error => {
+          this.notifier.notify("error", "Erreur lors de l'ajout");
+        }
+      );
     }
   }
 }
