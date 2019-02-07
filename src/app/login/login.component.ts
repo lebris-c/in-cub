@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
     this.userService.connect(this.loginForm.value).subscribe(
       data => {
         console.log(data)
-        localStorage.setItem('token', JSON.stringify(data['token']));
+        localStorage.setItem('token', data['token']);
         this.notifier.notify("success", "Connexion réussie");
         this.router.navigate(["/home"]);
       },

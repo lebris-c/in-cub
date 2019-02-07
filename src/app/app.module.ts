@@ -32,9 +32,10 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CofounderPipe } from "./cofounder.pipe";
 import { NotifierModule } from "angular-notifier";
-import { UserComponent } from './user/user.component';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
+import { UserComponent } from "./user/user.component";
+import { RegisterComponent } from "./register/register.component";
+import { LoginComponent } from "./login/login.component";
+import { httpInterceptorProviders } from "./http-interceptors";
 
 @NgModule({
   declarations: [
@@ -74,7 +75,7 @@ import { LoginComponent } from './login/login.component';
     MatTooltipModule
     // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
   ],
-  providers: [AddressPipe],
+  providers: [AddressPipe, httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
