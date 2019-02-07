@@ -32,6 +32,9 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CofounderPipe } from "./cofounder.pipe";
 import { NotifierModule } from "angular-notifier";
+import { UserComponent } from './user/user.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,10 @@ import { NotifierModule } from "angular-notifier";
     ConsultantFormComponent,
     AddressPipe,
     StartupFormComponent,
-    CofounderPipe
+    CofounderPipe,
+    UserComponent,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     FormsModule,

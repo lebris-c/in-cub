@@ -1,0 +1,26 @@
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="center">
+  <div fxFlex="80%">
+    <h2 style="color: #111; font-family: 'Helvetica Neue', sans-serif; font-weight: bold; letter-spacing: -1px; line-height: 1;">
+      S'inscrire
+    </h2>
+    <mat-divider></mat-divider>
+    <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="center">
+      <div fxFlex="60%">
+        <form (ngSubmit)="add()" [formGroup]="registerForm"  style="height : 40px;margin-top: auto;margin-bottom: auto">
+          <div style="display: flex;flex-direction: column">
+            <input type="hidden" formControlName="id" />
+            <mat-form-field>
+              <input matInput placeholder="Nom" formControlName="name" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput type="password" placeholder="Mot de passe" formControlName="password" />
+            </mat-form-field>
+            <button type="submit" [disabled]="registerForm.invalid" mat-raised-button color="primary">
+              S'inscrire
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

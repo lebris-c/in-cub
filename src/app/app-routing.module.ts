@@ -6,6 +6,8 @@ import { ConsultantComponentComponent } from "./consultant-component/consultant-
 import { HomeComponent } from "./home/home.component";
 import { Page404Component } from "./page404/page404.component";
 import { StartupFormComponent } from "./startup-form/startup-form.component";
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "/home", pathMatch: "full" },
@@ -16,7 +18,9 @@ const routes: Routes = [
   { path: "startup/:id", component: StartupFormComponent },
   { path: "page404", component: Page404Component },
   { path: "consultant/:id", component: ConsultantFormComponent },
-  { path: "consultant", component: ConsultantFormComponent }
+  { path: "consultant", component: ConsultantFormComponent },
+  { path: "register", component: RegisterComponent },
+  { path: "login", component: LoginComponent}
 ];
 
 @NgModule({
