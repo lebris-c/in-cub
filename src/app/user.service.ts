@@ -11,7 +11,7 @@ export class UserService {
   user: User;
   url: string;
   constructor(http: HttpClient) { 
-    this.url = "http://localhost:3000/register";
+    this.url = "http://localhost:3000/";
     this.http = http;
   }
 
@@ -23,9 +23,14 @@ export class UserService {
     return this.http.get<User>(this.url + "/" + id)
   }
 
+  connect(data) {
+    const cudOptions = { headers: new HttpHeaders({ "Content-Type": "application/json" }) };
+    return this.http.post(this.url+"login", data, cudOptions)
+  }
+
   add(data) {
     const cudOptions = { headers: new HttpHeaders({ "Content-Type": "application/json" }) };
-    return this.http.post<User>(this.url, data, cudOptions);
+    return this.http.post<User>(this.url+"register", data, cudOptions);
   }
 
 
