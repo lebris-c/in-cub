@@ -10,7 +10,7 @@
       <div fxFlex="60%">
         <form (ngSubmit)="add()" [formGroup]="consultantForm">
           <div style="display: flex;flex-direction: column">
-            <input type="hidden" formControlName="idConsultant" />
+            <input type="hidden" formControlName="_id" />
             <mat-form-field>
               <input matInput placeholder="Nom" formControlName="name" />
             </mat-form-field>

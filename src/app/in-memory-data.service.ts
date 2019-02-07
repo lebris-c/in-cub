@@ -21,7 +21,7 @@ export class InMemoryDataService implements InMemoryDataService {
         1,
         "Spécialiste du Business Development, nous accompagnons nos clients (de la Start-Up à l'ETI) avec un ensemble de métiers opérationnels pour soutenir et développer le Chiffre d'Affaires.",
         "21 Avenue des Tulipes",
-        1
+        consultant1
       ),
       new Startup(
         2,
@@ -31,7 +31,7 @@ export class InMemoryDataService implements InMemoryDataService {
         3,
         "AriadNEXT édite depuis 2010, les solutions d’identification numérique automatisées les plus avancées. Nous offrons aux entreprises et gouvernements, la possibilité de nouer instantanément des relations de confiance avec leurs consommateurs et leurs citoyens en ligne.",
         "",
-        2
+        consultant1
       ),
       new Startup(
         3,
@@ -41,7 +41,7 @@ export class InMemoryDataService implements InMemoryDataService {
         2,
         "Expert de l'informatique embarquée pour semi-remorque",
         "21 Avenue des Coquelicots",
-        3
+        consultant2
       ),
       new Startup(
         4,
@@ -51,7 +51,7 @@ export class InMemoryDataService implements InMemoryDataService {
         1,
         "Le 1er guide des villes de demain pour #vivre ou #investir. Habiliv offre les outils pour se projeter dans les villes du Grand Paris grâce à des informations transparentes, concrètes et positives.",
         "1 rue Lavande",
-        1
+        consultant3
       ),
       new Startup(
         5,
@@ -61,13 +61,13 @@ export class InMemoryDataService implements InMemoryDataService {
         2,
         "HYPNOS est le premier masque d'hypnose connecté qui vous aide à mieux dormir, mieux gérer le stress de la vie quotidienne et atteindre vos objectifs en toute autonomie.",
         "12 rue Lavande",
-        2
+        consultant2
       )
     ];
     return { consultants, startups };
   }
   genId(startups: Startup[]): number {
-    return startups.length > 0 ? Math.max(...startups.map(startup => startup.idStartup)) + 1 : 11;
+    return startups.length > 0 ? Math.max(...startups.map(startup => startup._id)) + 1 : 11;
   }
   constructor() {}
 }

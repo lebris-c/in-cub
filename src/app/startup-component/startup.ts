@@ -1,31 +1,31 @@
 import Consultant from "../consultant-component/consultant";
 export default class Startup {
-  idStartup: number;
+  _id: number;
   name: string;
   activity: string;
   official: string;
   nbCofounder: number;
   description: string;
   address: string;
-  consultantId: number;
+  consultant: Consultant;
 
   constructor(
-    idStartup: number,
+    _id: number,
     name: string,
     activity: string,
     official: string,
     NbCofounder: number,
     description: string,
     address: string,
-    consultantId: number
+    consultant: Consultant
   ) {
-    this.idStartup = idStartup;
+    this._id = _id;
     this.name = name;
     this.activity = activity;
     this.official = official;
     this.nbCofounder = NbCofounder;
     this.description = description;
     this.address = address;
-    this.consultantId = consultantId;
+    this.consultant = consultant;
   }
 }

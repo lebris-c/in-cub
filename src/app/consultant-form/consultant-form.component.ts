@@ -12,7 +12,7 @@ import { NotifierService } from "angular-notifier";
   styleUrls: ["./consultant-form.component.css"]
 })
 export class ConsultantFormComponent implements OnInit {
-  idConsultantCtrl: FormControl;
+  _idCtrl: FormControl;
   nameCtrl: FormControl;
   surnameCtrl: FormControl;
   descriptionCtrl: FormControl;
@@ -33,22 +33,22 @@ export class ConsultantFormComponent implements OnInit {
     this.route = route;
     this.router = router;
     this.consultantService = consultantService;
-    this.idConsultantCtrl = fb.control("");
+    this._idCtrl = fb.control("");
     this.nameCtrl = fb.control("", [Validators.required]);
     this.surnameCtrl = fb.control("", [Validators.required]);
     this.descriptionCtrl = fb.control("", [Validators.required]);
     this.consultantForm = fb.group({
-      idConsultant: this.idConsultantCtrl,
+      _id: this._idCtrl,
       name: this.nameCtrl,
       surname: this.surnameCtrl,
       description: this.descriptionCtrl
     });
 
-    const id = +this.route.snapshot.paramMap.get("id");
-    if (id !== 0) {
+    const id = this.route.snapshot.paramMap.get("id");
+    if (id != null) {
       this.consultantService.getConsultant(id).subscribe(res => {
         this.consultant = res;
-        this.idConsultantCtrl.setValue(res.idConsultant);
+        this._idCtrl.setValue(res._id);
         this.nameCtrl.setValue(res.name);
         this.surnameCtrl.setValue(res.surname);
         this.descriptionCtrl.setValue(res.description);
@@ -61,7 +61,7 @@ export class ConsultantFormComponent implements OnInit {
   add() {
     if (this.consultant != null) {
       let consultant = new Consultant(
-        this.consultantForm.value.idConsultant,
+        this.consultantForm.value._id,
         this.consultantForm.value.name,
         this.consultantForm.value.surname,
         this.consultantForm.value.description
@@ -77,7 +77,7 @@ export class ConsultantFormComponent implements OnInit {
       );
     } else {
       let data = this.consultantForm.value;
-      delete data["idConsultant"];
+      delete data["_id"];
       this.consultantService.add(data).subscribe(
         data => {
           this.notifier.notify("success", "Ajouter avec succès");

@@ -78,17 +78,12 @@
             mat-icon-button
             matTooltip="Editer"
             color="primary"
-            routerLink="/startup/{{ startup.idStartup }}"
+            routerLink="/startup/{{ startup._id }}"
             routerLinkActive="active"
           >
             <mat-icon arial-label="Edit">create</mat-icon>
           </button>
-          <button
-            mat-icon-button 
-            color="warn"
-            matTooltip="Supprimer"
-            (click)="delete(startup.idStartup)"
-          >
+          <button mat-icon-button color="warn" matTooltip="Supprimer" (click)="delete(startup._id)">
             <mat-icon>delete</mat-icon>
           </button>
         </td>

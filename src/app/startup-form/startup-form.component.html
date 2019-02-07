@@ -10,7 +10,7 @@
       <div fxFlex="60%">
         <form (ngSubmit)="add()" [formGroup]="startupForm">
           <div style="display: flex;flex-direction: column">
-            <input type="hidden" formControlName="id" />
+            <input type="hidden" formControlName="_id" />
             <mat-form-field>
               <input matInput placeholder="Nom" formControlName="name" />
               <mat-error *ngIf="nameCtrl.errors?.maxlength">
@@ -53,11 +53,11 @@
               <mat-select
                 [(ngModel)]="selectedConsultant"
                 placeholder="Consultant"
-                formControlName="consultantId"
+                formControlName="consultant"
               >
                 <mat-option
                   *ngFor="let consultant of (consultants | async)"
-                  [value]="consultant.idConsultant"
+                  [value]="consultant._id"
                 >
                   {{ consultant.surname | uppercase }} {{ consultant.name }}
                 </mat-option>

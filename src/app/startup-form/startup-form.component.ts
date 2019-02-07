@@ -16,14 +16,14 @@ import { partition, find, map } from "rxjs/operators";
   styleUrls: ["./startup-form.component.css"]
 })
 export class StartupFormComponent implements OnInit {
-  idCtrl: FormControl;
+  _idCtrl: FormControl;
   nameCtrl: FormControl;
   activityCtrl: FormControl;
   officialCtrl: FormControl;
   nbCofounderCtrl: FormControl;
   descriptionCtrl: FormControl;
   addressCtrl: FormControl;
-  consultantIdCtrl: FormControl;
+  consultantCtrl: FormControl;
   startupForm: FormGroup;
   startupService: StartupService;
   route: ActivatedRoute;
@@ -48,37 +48,37 @@ export class StartupFormComponent implements OnInit {
     this.consultantService = consultantService;
     this.route = route;
     this.startupService = startupService;
-    this.idCtrl = fb.control("");
+    this._idCtrl = fb.control("");
     this.nameCtrl = fb.control("", [Validators.required, Validators.maxLength(20)]);
     this.activityCtrl = fb.control("", [Validators.required, Validators.maxLength(10)]);
     this.officialCtrl = fb.control("", [Validators.required, Validators.maxLength(15)]);
     this.nbCofounderCtrl = fb.control("", [Validators.required]);
     this.descriptionCtrl = fb.control("", [Validators.maxLength(250)]);
     this.addressCtrl = fb.control("", [Validators.maxLength(25)]);
-    this.consultantIdCtrl = fb.control("");
+    this.consultantCtrl = fb.control("");
     this.startupForm = fb.group({
-      id: this.idCtrl,
+      _id: this._idCtrl,
       name: this.nameCtrl,
       activity: this.activityCtrl,
       official: this.officialCtrl,
       nbCofounder: this.nbCofounderCtrl,
       description: this.descriptionCtrl,
       address: this.addressCtrl,
-      consultantId: this.consultantIdCtrl
+      consultant: this.consultantCtrl
     });
 
-    const id = +this.route.snapshot.paramMap.get("id");
-    if (id !== 0) {
+    const id = this.route.snapshot.paramMap.get("id");
+    if (id != null) {
       this.startupService.getStartup(id).subscribe(res => {
         this.startup = res;
-        this.idCtrl.setValue(res.idStartup);
+        this._idCtrl.setValue(res._id);
         this.nameCtrl.setValue(res.name);
         this.activityCtrl.setValue(res.activity);
         this.officialCtrl.setValue(res.official);
         this.nbCofounderCtrl.setValue(res.nbCofounder);
         this.descriptionCtrl.setValue(res.description);
         this.addressCtrl.setValue(res.address);
-        this.selectedConsultant = res.consultantId;
+        this.selectedConsultant = res.consultant._id;
       });
     }
   }
@@ -89,14 +89,14 @@ export class StartupFormComponent implements OnInit {
   add() {
     if (this.startup != null) {
       let startup = new Startup(
-        this.startupForm.value.id,
+        this.startupForm.value._id,
         this.startupForm.value.name,
         this.startupForm.value.activity,
         this.startupForm.value.official,
         this.startupForm.value.nbCofounder,
         this.startupForm.value.description,
         this.startupForm.value.address,
-        this.startupForm.value.consultantId
+        this.startupForm.value.consultant
       );
       this.startupService.edit(startup).subscribe(
         data => {
@@ -109,7 +109,7 @@ export class StartupFormComponent implements OnInit {
       );
     } else {
       let data = this.startupForm.value;
-      delete data["id"];
+      delete data["_id"];
       this.startupService.add(data).subscribe(
         data => {
           this.notifier.notify("success", "Ajouter avec succès");
