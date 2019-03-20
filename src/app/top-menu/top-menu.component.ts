@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-top-menu',
@@ -6,10 +7,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./top-menu.component.css']
 })
 export class TopMenuComponent implements OnInit {
-
-  constructor() { }
+  isConnected:boolean
+  router: Router;
+  constructor(router: Router) {
+    this.router = router;
+   }
 
   ngOnInit() {
+    if(localStorage.getItem('token')) {
+      this.isConnected = true
+    } else {
+      this.isConnected = false
+    }
+    
   }
-
+   diconnect() {
+     localStorage.removeItem('token')
+     this.router.navigate(["/login"]);
+   }
 }
