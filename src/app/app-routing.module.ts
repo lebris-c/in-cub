@@ -20,7 +20,8 @@ const routes: Routes = [
   { path: "consultant/:id", component: ConsultantFormComponent },
   { path: "consultant", component: ConsultantFormComponent },
   { path: "register", component: RegisterComponent },
-  { path: "login", component: LoginComponent}
+  { path: "login", component: LoginComponent},
+  {path: '**', redirectTo: '/page404'}
 ];
 
 @NgModule({
