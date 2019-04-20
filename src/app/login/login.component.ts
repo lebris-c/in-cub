@@ -12,6 +12,7 @@ import { NotifierService } from 'angular-notifier';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  isConnected:boolean
   nameCtrl: FormControl;
   passwordCtrl: FormControl;
   user: User;

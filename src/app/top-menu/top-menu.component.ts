@@ -21,8 +21,10 @@ export class TopMenuComponent implements OnInit {
     }
     
   }
-   diconnect() {
+   disconnect() {
      localStorage.removeItem('token')
+     //this.isConnected = false
      this.router.navigate(["/login"]);
+     
    }
 }
